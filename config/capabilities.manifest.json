@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-09-03",
+  "scope": "AIaC capability decisions derived from manually reviewed upstream sources",
+  "rules": [
+    "Không copy mù skill/plugin vào AIaC; mọi nâng cấp là manual-selective.",
+    "Kho upstream chỉ dùng tham chiếu/audit; runtime chỉ dùng tài sản độc lập trong 360org/plugins.",
+    "ECC là core upstream; 360org chỉ chứa capability custom không trùng hoặc adapter có rule riêng của Sếp.",
+    "Vendor automation/API skills chỉ dùng làm nguồn tham khảo theo nhu cầu thực tế, không đăng ký mặc định.",
+    "Capability mới phải có trigger, dependency, test và quyết định chống trùng lặp trước khi đưa vào 360org."
+  ],
+  "decisions": [
+    {
+      "source": "ECC",
+      "kind": "upstream-core",
+      "trigger": "Claude Code lifecycle, hooks, rules, broad engineering skills",
+      "overlap": "base",
+      "dependencies": ["node"],
+      "test": "ECC installer/tests; AIaC installer fixture",
+      "decision": "keep-as-upstream",
+      "notes": "Không fork nội dung skill ECC vào 360org; overlay qua installer/router."
+    },
+    {
+      "source": "odoo-dev-skills",
+      "kind": "domain-skill",
+      "trigger": "Có chữ odoo hoặc workspace có __manifest__.py/odoo-bin",
+      "overlap": "custom-domain",
+      "dependencies": ["python", "odoo optional tools"],
+      "test": "odoo linter/generator theo nhu cầu; router Odoo fixture",
+      "decision": "merged-as-360-odoo",
+      "notes": "Giữ rule Odoo v14-v19, production backup và template riêng."
+    },
+    {
+      "source": "v-assistant-dev-skills",
+      "kind": "domain-skill",
+      "trigger": "Đường dẫn v-assistant hoặc src-tauri + idea.md",
+      "overlap": "custom-domain",
+      "dependencies": ["node", "tauri", "macOS native app"],
+      "test": "native macOS verification theo Global CLAUDE.md",
+      "decision": "merged-as-360-vassistant",
+      "notes": "Bắt buộc worktree riêng và app macOS thật, không Browser pane làm bằng chứng."
+    },
+    {
+      "source": "hermes-dev-skills",
+      "kind": "domain-skill",
+      "trigger": "Hermes workspace/plugin.yaml hoặc đường dẫn hermes",
+      "overlap": "custom-domain",
+      "dependencies": ["project-specific"],
+      "test": "project tests/live checks theo Hermes",
+      "decision": "merged-as-360-hermes",
+      "notes": "Giữ kết nối CloudPanel chỉ khi Sếp yêu cầu rõ."
+    },
+    {
+      "source": "vuaai-payload-website-skills + payload-design-website-skill + OpenClaw/OpenSpec references",
+      "kind": "domain-skill",
+      "trigger": "OpenClaw, VuaAI, Payload marketing site, website 360 CORP",
+      "overlap": "custom-domain",
+      "dependencies": ["node", "payload/next optional"],
+      "test": "project build/test/deploy guide theo site",
+      "decision": "merged-as-360-payload-website",
+      "notes": "Đóng gói playbook độc lập trong 360org/plugins/360-payload-website; ưu tiên website marketing 360 CORP trên stack Payload CMS 3.85 + Next.js 16 + SQLite deploy CloudPanel."
+    },
+    {
+      "source": "dev-workflow-skills + spec-kit/OpenSpec",
+      "kind": "workflow",
+      "trigger": "dùng agent skills, init/start project non-Odoo, requirements/spec/plan/build/code-review/test/review/ship",
+      "overlap": "workflow",
+      "dependencies": ["git", "markdown"],
+      "test": "mandatory docs + task.md/changelog checks",
+      "decision": "merged-as-360-dev-workflow",
+      "notes": "Đóng gói workflow đã tuyển chọn trong 360org/plugins/360-dev-workflow; giữ luồng 9 bước (/idea -> /req -> /spec -> /plan -> /build -> /code-review -> /test -> /review -> /ship; /code-review là cổng chặn trước /test), 7 mandatory docs, CONTEXT.md #8, phân bổ model và grilling interview."
+    },
+    {
+      "source": "360-marketing-automation + ai-copywriter",
+      "kind": "domain-skill",
+      "trigger": "Marketing, campaign automation, copywriting, humanizer",
+      "overlap": "custom-domain",
+      "dependencies": ["python", "node"],
+      "test": "campaign workflow & copywriting tests",
+      "decision": "merged-as-360-marketing",
+      "notes": "Gom 360-marketing-automation và ai-copywriter thành 360-marketing với 2 module con: automation/ và ai-copywriter/."
+    },
+    {
+      "source": "360-designer + 360-icon-builder",
+      "kind": "domain-skill",
+      "trigger": "Thiết kế ấn phẩm, standee, poster, banner, ERP icon",
+      "overlap": "custom-domain",
+      "dependencies": ["python", "pillow"],
+      "test": "compose_publication.py & PDF build tests",
+      "decision": "merged-as-360-designer",
+      "notes": "Gom 360-designer và 360-icon-builder thành 360-designer với module con icon-builder/."
+    },
+    {
+      "source": "ponytail",
+      "kind": "quality-discipline",
+      "trigger": "Mọi task viết/sửa code",
+      "overlap": "not-covered-by-ECC-default",
+      "dependencies": [],
+      "test": "diff review; simplification check",
+      "decision": "merged-as-360-ponytail",
+      "notes": "Chống overengineering/YAGNI, áp dụng song song mọi domain."
+    },
+    {
+      "source": "caveman",
+      "kind": "context-discipline",
+      "trigger": "Log lớn, context lớn, cần nén/tối ưu token",
+      "overlap": "token-optimization",
+      "dependencies": ["python optional"],
+      "test": "context cap/router checks",
+      "decision": "merged-as-360-caveman",
+      "notes": "Giữ vai trò token/context, không thay thế codegraph semantic."
+    },
+    {
+      "source": "superpowers",
+      "kind": "agent-orchestration",
+      "trigger": "Task phức tạp cần phân rã, review, verification, worktree discipline",
+      "overlap": "agent-ops",
+      "dependencies": ["git optional"],
+      "test": "task decomposition + verification loop",
+      "decision": "merged-as-360-superpowers",
+      "notes": "Dùng khi thật sự giảm thời gian/rủi ro; không fan-out vô tội vạ."
+    },
+    {
+      "source": "360-agent-map",
+      "kind": "lightweight-agent-index",
+      "trigger": "Mọi SessionStart project; code/audit/fix bug/fix feature cần chọn file/symbol trước khi đọc sâu",
+      "overlap": "token-optimization-not-semantic-codegraph",
+      "dependencies": ["python3 stdlib"],
+      "test": "tests/agent-map.test.py + SessionStart fixture",
+      "decision": "merged-as-360-agent-map",
+      "notes": "Default nhẹ không DB/daemon/MCP; CodeGraph vẫn là deep mode cho flow/impact/audit/bug fail 2 lần."
+    },
+    {
+      "source": "colbymchenry/codegraph",
+      "kind": "semantic-codegraph",
+      "trigger": "Project có .codegraph và câu hỏi structure/flow/impact/affected tests",
+      "overlap": "extends-lightweight-codegraph",
+      "dependencies": ["pinned CodeGraph binary"],
+      "test": "release checksum + fixture init/explore + project smoke",
+      "decision": "merged-as-360-codegraph",
+      "notes": "Không chạy upstream installer; MCP chỉ project-local."
+    },
+    {
+      "source": "wp-audit-website + wp-dev-skills",
+      "kind": "domain-skill",
+      "trigger": "WordPress/WP/CloudPanel site, theme/plugin/block/REST API, audit/scan/clean/harden/malware/500/down",
+      "overlap": "custom-domain",
+      "dependencies": ["ssh cloudpanel", "wp-cli optional", "bash scripts"],
+      "test": "tree feature-count check + router WordPress fixture",
+      "decision": "merged-as-360-wordpres",
+      "notes": "Đóng gói độc lập trong 360org/plugins/360-securities và 360org/plugins/360-wordpress; không phụ thuộc kho nguồn."
+    }
+  ]
+}

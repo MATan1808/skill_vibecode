@@ -1,0 +1,18 @@
+{
+  "name": "360-flutter",
+  "version": "3.0.0",
+  "description": "Flutter & Dart Mobile Architecture Engine",
+  "main": "index.js",
+  "inject": ["shell", "linter"],
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "script": "hooks/post-write-dart-analyze.js" }
+    ]
+  },
+  "connectors": [
+    { "name": "flutter-cli", "type": "binary" }
+  ],
+  "prompts": [
+    "prompts/flutter-standards.md"
+  ]
+}

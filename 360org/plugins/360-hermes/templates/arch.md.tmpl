@@ -1,0 +1,18 @@
+# ARCH: {{plugin_name}}
+
+## Sơ đồ tích hợp
+
+```
+{{User}} ↔ {{Platform/API bên ngoài}} ↔ {{plugin_name}} Adapter ↔ Hermes Gateway ↔ AIAgent
+```
+
+## Deployment topology
+
+- **Vị trí plugin:** `{{~/.hermes/plugins/<name>/ | data/profiles/<profile>/plugins/{platforms,tools}/<name>/}}`
+- **Profile áp dụng:** {{default | tên profile con}}
+- **Container:** `nousresearch/hermes-agent:latest` (service `gateway`), mount `./data/profiles:/opt/data/profiles`.
+- **Credential dùng chung nhiều profile?** {{Có → cần token lock / Không}}
+
+## Luồng dữ liệu
+
+{{Bước 1: user gửi tin → Bước 2: adapter nhận/poll → Bước 3: build MessageEvent → Bước 4: handle_message → Bước 5: AIAgent xử lý → Bước 6: send() trả lời}}

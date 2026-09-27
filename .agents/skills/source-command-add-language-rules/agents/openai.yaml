@@ -1,0 +1,5 @@
+version: 1
+metadata:
+  display_name: "Add Language Rules"
+  short_description: "Scaffold ECC rules for a new language"
+  default_prompt: "Use $source-command-add-language-rules to add or update language-specific ECC rules."

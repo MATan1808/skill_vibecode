@@ -1,0 +1,7 @@
+{
+  "name": "360-vcloud",
+  "version": "1.0.0",
+  "description": "Kỹ năng chuyên biệt cho hệ sinh thái VCloud (Flutter Mobile Client) & v_mobile (Odoo Backend API)",
+  "author": "360org",
+  "main": "index.js"
+}

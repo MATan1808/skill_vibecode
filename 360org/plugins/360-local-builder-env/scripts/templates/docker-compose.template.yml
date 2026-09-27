@@ -1,0 +1,56 @@
+version: "3.8"
+
+networks:
+  {{ network_name }}:
+    name: {{ network_name }}
+    driver: bridge
+
+services:
+  db:
+    image: {{ db_image }}
+    container_name: {{ db_container_name }}
+    restart: unless-stopped
+    networks:
+      - {{ network_name }}
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    ports:
+      - "{{ db_host_port }}:5432"
+    volumes:
+      - {{ db_volume_name }}:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    image: {{ odoo_image }}
+    container_name: {{ odoo_container_name }}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - {{ network_name }}
+    ports:
+      - "{{ web_port }}:8069"
+      {% if longpolling_port %}
+      - "{{ longpolling_port }}:8072"
+      {% endif %}
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - ./odoo.conf:/etc/odoo/odoo.conf:ro
+      - ./filestore:/var/lib/odoo/.local/share/Odoo/filestore
+      - ./sessions:/var/lib/odoo/.local/share/Odoo/sessions
+{{ mounted_addons_yaml }}
+    command: --config /etc/odoo/odoo.conf
+
+volumes:
+  {{ db_volume_name }}:
+    name: {{ db_volume_name }}

@@ -1,0 +1,10 @@
+{
+  "name": "360-agent-map",
+  "version": "3.0.0",
+  "description": "Symbol and Domain Signal Mapping Engine",
+  "main": "index.js",
+  "inject": ["python", "indexer"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/agent-map-standards.md"]
+}

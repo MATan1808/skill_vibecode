@@ -1,0 +1,10 @@
+{
+  "name": "360-vuaassistant",
+  "version": "3.0.0",
+  "description": "V-Assistant macOS Native Desktop Assistant Engine",
+  "main": "index.js",
+  "inject": ["shell", "tauri"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/vuaassistant-standards.md"]
+}

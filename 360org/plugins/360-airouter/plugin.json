@@ -1,0 +1,10 @@
+{
+  "name": "360-airouter",
+  "version": "3.0.0",
+  "description": "Multi-Model AI Router and Provider Balancing Engine",
+  "main": "index.js",
+  "inject": ["models", "router"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/airouter-standards.md"]
+}

@@ -1,0 +1,117 @@
+"""Platform adapter template — xem hermes-dev-skills/references/platform-adapters.md trước khi điền.
+
+Đổi mọi {{placeholder}} và tên class/hàm cho khớp plugin thật.
+"""
+import asyncio
+import logging
+import os
+from typing import Optional
+
+from gateway.platforms.base import (
+    BasePlatformAdapter, SendResult, MessageEvent, MessageType,
+)
+from gateway.config import Platform, PlatformConfig
+from gateway.status import acquire_scoped_lock, release_scoped_lock  # bỏ nếu không cần token lock
+
+logger = logging.getLogger(__name__)
+
+PLATFORM_NAME = "{{platform_name}}"  # vd "vuahethong", "zalo"...
+
+
+class {{ClassName}}Adapter(BasePlatformAdapter):
+    def __init__(self, config: PlatformConfig, **kwargs):
+        super().__init__(config=config, platform=Platform(PLATFORM_NAME))
+        extra = config.extra or {}
+        self.token = os.getenv("{{PLUGIN_TOKEN}}") or extra.get("token", "")
+        try:
+            self.poll_interval = float(os.getenv("{{PLUGIN_POLL_INTERVAL}}") or extra.get("poll_interval", 2.0))
+        except (TypeError, ValueError):
+            self.poll_interval = 2.0
+
+        self._running = False
+        self._poll_task: Optional[asyncio.Task] = None
+
+    @property
+    def name(self) -> str:
+        return "{{Display Name}}"
+
+    async def connect(self, *, is_reconnect: bool = False) -> bool:
+        if not self.token:
+            logger.error("%s: Missing credentials.", PLATFORM_NAME)
+            self._set_fatal_error("config_missing", "{{PLUGIN_TOKEN}} must be set", retryable=False)
+            return False
+
+        # ponytail: bỏ token lock nếu credential không share giữa nhiều profile
+        if not acquire_scoped_lock(PLATFORM_NAME, self.token):
+            logger.error("%s: token already in use by another profile.", PLATFORM_NAME)
+            return False
+
+        try:
+            # TODO: xác thực thật với API/backend ngoài ở đây
+            self._running = True
+            self._poll_task = asyncio.create_task(self._poll_loop())
+            self._mark_connected()
+            return True
+        except Exception as e:
+            logger.error("%s: connect failed: %s", PLATFORM_NAME, e)
+            self._set_fatal_error("connect_failed", str(e), retryable=True)
+            return False
+
+    async def disconnect(self) -> None:
+        self._running = False
+        if self._poll_task:
+            self._poll_task.cancel()
+            try:
+                await self._poll_task
+            except asyncio.CancelledError:
+                pass
+        release_scoped_lock(PLATFORM_NAME, self.token)
+        self._mark_disconnected()
+
+    async def send(self, chat_id: str, content: str, reply_to=None, metadata=None) -> SendResult:
+        try:
+            # TODO: gọi API gửi tin thật ở đây
+            return SendResult(success=True, message_id="...")
+        except Exception as e:
+            logger.error("%s send error: %s", PLATFORM_NAME, e)
+            return SendResult(success=False, error=str(e))
+
+    async def get_chat_info(self, chat_id: str) -> dict:
+        return {"name": f"Chat {chat_id}", "type": "dm", "chat_id": chat_id}
+
+    async def _poll_loop(self):
+        while self._running:
+            try:
+                # TODO: fetch updates thật, build MessageEvent bằng self.build_source(...)
+                pass
+            except Exception as e:
+                logger.error("%s poll tick error: %s", PLATFORM_NAME, e)
+            await asyncio.sleep(self.poll_interval)
+
+
+def check_requirements() -> bool:
+    return bool(os.getenv("{{PLUGIN_TOKEN}}"))
+
+
+def validate_config(config) -> bool:
+    extra = getattr(config, "extra", {}) or {}
+    return bool(os.getenv("{{PLUGIN_TOKEN}}") or extra.get("token"))
+
+
+def register(ctx):
+    ctx.register_platform(
+        name=PLATFORM_NAME,
+        label="{{Display Label}}",
+        adapter_factory=lambda cfg: {{ClassName}}Adapter(cfg),
+        check_fn=check_requirements,
+        validate_config=validate_config,
+        required_env=["{{PLUGIN_TOKEN}}"],
+        allowed_users_env="{{PLUGIN_ALLOWED_USERS}}",
+        allow_all_env="{{PLUGIN_ALLOW_ALL_USERS}}",
+        max_message_length=0,
+        emoji="💬",
+        platform_hint=(
+            "You are chatting via {{Display Label}}. "
+            "{{Ràng buộc format nếu có: no markdown, plain text only...}}"
+        ),
+    )

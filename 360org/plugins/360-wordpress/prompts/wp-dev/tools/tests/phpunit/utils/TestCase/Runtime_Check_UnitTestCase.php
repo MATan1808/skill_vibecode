@@ -1,0 +1,104 @@
+<?php
+/**
+ * Abstract Runtime_Check_UnitTestCase.
+ *
+ * @package plugin-check
+ */
+
+namespace WordPress\Plugin_Check\Test_Utils\TestCase;
+
+use WordPress\Plugin_Check\Checker\Check;
+use WordPress\Plugin_Check\Checker\Check_Context;
+use WordPress\Plugin_Check\Checker\Check_Result;
+use WordPress\Plugin_Check\Checker\Preparation;
+use WordPress\Plugin_Check\Checker\Preparations\Universal_Runtime_Preparation;
+use WordPress\Plugin_Check\Checker\Runtime_Check;
+use WordPress\Plugin_Check\Checker\Runtime_Environment_Setup;
+use WordPress\Plugin_Check\Checker\With_Shared_Preparations;
+use WP_UnitTestCase;
+
+abstract class Runtime_Check_UnitTestCase extends WP_UnitTestCase {
+	/**
+	 * Gets the Check_Context for the plugin.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $plugin_file The absolute path to the plugin main file.
+	 * @return Check_Context The check context for the plugin file.
+	 */
+	protected function get_context( $plugin_file ) {
+		return new Check_Context( $plugin_file );
+	}
+
+	/**
+	 * Prepares the test environment by running all preparations.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Check         $check   The check to prepare the environment for.
+	 * @param Check_Context $context The check context to be checked.
+	 */
+	protected function prepare_environment( Check $check, Check_Context $context ) {
+		$cleanups = array();
+
+		if ( $check instanceof Runtime_Check ) {
+			/*
+			 * The runtime environment must be prepared manually before regular runtime preparations.
+			 * This is necessary because in reality it happens in a separate AJAX request before.
+			 */
+			$runtime = new Runtime_Environment_Setup();
+			$runtime->set_up();
+			$cleanups[] = function () use ( $runtime ) {
+				$runtime->clean_up();
+			};
+
+			$cleanups[] = ( new Universal_Runtime_Preparation( $context ) )->prepare();
+		}
+
+		// Prepare any shared preparations for the check.
+		if ( $check instanceof With_Shared_Preparations ) {
+			foreach ( $check->get_shared_preparations() as $class => $args ) {
+				$cleanups[] = ( new $class( ...$args ) )->prepare();
+			}
+		}
+
+		// Prepare the check.
+		if ( $check instanceof Preparation ) {
+			$cleanups[] = $check->prepare();
+		}
+
+		// Revert order so that earlier preparations are cleaned up later.
+		$cleanups = array_reverse( $cleanups );
+
+		// Return the cleanup function.
+		return function () use ( $cleanups ) {
+			foreach ( $cleanups as $cleanup ) {
+				$cleanup();
+			}
+		};
+	}
+
+	/**
+	 * Prepares the test environment and runs the check returning the results.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param Check         $check   The Check instance to run.
+	 * @param Check_Context $context The check context for the plugin to be checked.
+	 * @return Check_Result An object containing all check results.
+	 */
+	protected function run_check( Check $check, Check_Context $context ) {
+		$results = new Check_Result( $context );
+		$cleanup = $this->prepare_environment( $check, $context );
+
+		try {
+			$check->run( $results );
+		} catch ( \Exception $e ) {
+			$cleanup();
+			throw $e;
+		}
+		$cleanup();
+
+		return $results;
+	}
+}

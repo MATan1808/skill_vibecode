@@ -1,0 +1,100 @@
+parameters:
+  level: 5
+  paths:
+    - plugin.php
+    - includes/
+  excludePaths:
+    - includes/Lib/
+  bootstrapFiles:
+    - tests/phpstan/bootstrap.php
+  scanFiles:
+    - plugin.php
+    - tests/phpstan/stubs/wp-cli.php
+    - tests/phpstan/stubs/exitexception.php
+    - tests/phpstan/stubs/formatter.php
+    - tests/phpstan/stubs/readme-parser.php
+  dynamicConstantNames:
+    - WP_PLUGIN_CHECK_PLUGIN_DIR_URL
+  treatPhpDocTypesAsCertain: false
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    # False positive as WordPress ships with a polyfill.
+    -
+      message: '/^Function str_contains not found.$/'
+      paths:
+        - includes/Checker/Checks/Abstract_File_Check.php
+        - includes/Checker/Checks/Plugin_Readme_Check.php
+        - includes/Traits/Find_Readme.php
+        - includes/Traits/File_Editor_URL.php
+    -
+      message: '/^Function str_starts_with not found.$/'
+      path: includes/Checker/CLI_Runner.php
+    -
+      message: '/^Function str_ends_with not found.$/'
+      path: includes/Checker/Checks/Abstract_File_Check.php
+    -
+      message: '/^Access to deprecated property \$parts of class PhpParser\\Node\\Name:/'
+      path: includes/Scanner/PHP_Parser.php
+    -
+      message: '/^Call to function is_object\(\) with object will always evaluate to true\.$/'
+      path: includes/Scanner/PHP_Parser.php
+    -
+      message: '/^Call to function is_object\(\) with PhpParser\\Node\\Expr\\AssignOp\\Concat will always evaluate to true\.$/'
+      path: includes/Scanner/PHP_Parser.php
+    -
+      message: '/^Call to function method_exists\(\) with object and .*getEndLine.* will always evaluate to true\.$/'
+      path: includes/Scanner/PHP_Parser.php
+    -
+      message: '/^Call to function method_exists\(\) with PhpParser\\Node\\Expr\\AssignOp\\Concat and .*getEndLine.* will always evaluate to true\.$/'
+      path: includes/Scanner/PHP_Parser.php
+    -
+      message: '/^Instanceof between PhpParser\\Node\\Expr\\AssignOp\\Concat and PhpParser\\Node\\Expr\\AssignOp will always evaluate to true\.$/'
+      path: includes/Scanner/PHP_Parser.php
+    -
+      message: '/^Access to property \$parts on .*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$parts.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$value on PhpParser\\Node\\Arg\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$value on PhpParser\\Node\\Scalar\\String_\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$value.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$left on .*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$right on .*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$expr on .*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$name on .*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Access to property \$args on .*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$left.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$right.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$expr.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$name.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Undefined property.*\$args.*\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php
+    -
+      message: '/^Property PhpParser\\Node\\Scalar\\Encapsed::\$parts.*is not nullable\.$/'
+      path: includes/Checker/Checks/Plugin_Repo/Direct_File_Access_Check.php

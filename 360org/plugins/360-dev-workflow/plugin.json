@@ -1,0 +1,13 @@
+{
+  "name": "360-dev-workflow",
+  "version": "3.0.0",
+  "description": "9-Step Software Engineering Workflow & Mandatory 7-Docs Engine",
+  "main": "index.js",
+  "inject": ["shell", "git", "devtrack"],
+  "hooks": {
+    "PreToolUse": [{ "matcher": "Bash", "script": "hooks/pre-git-push-docs-guard.js" }],
+    "Stop": [{ "matcher": ".*", "script": "hooks/stop-devtrack-checkpoint.js" }]
+  },
+  "connectors": [],
+  "prompts": ["prompts/workflow-standards.md"]
+}

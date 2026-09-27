@@ -1,0 +1,10 @@
+{
+  "name": "360-agent-browser",
+  "version": "3.0.0",
+  "description": "Agent Browser E2E Automation & Persistent Session Engine",
+  "main": "index.js",
+  "inject": ["browser", "e2e"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/agent-browser-standards.md"]
+}

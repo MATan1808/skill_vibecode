@@ -1,0 +1,75 @@
+{
+  "env": {
+    "AIAC_ALLOW_DEV_WORKSPACE": "1",
+    "AIAC_LIGHT_HOOKS": "1",
+    "AIAC_SKIP_CODEGRAPH": "1",
+    "AIAC_TELEMETRY_DASHBOARD": "1"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),os=require('os'),path=require('path'),{spawnSync}=require('child_process');const raw=fs.readFileSync(0,'utf8');const target=process.argv[1];const roots=[process.env.AIAC_ENV_ROOT&&path.join(process.env.AIAC_ENV_ROOT,'.claude','360org'),process.env.CLAUDE_PLUGIN_ROOT&&path.join(process.env.CLAUDE_PLUGIN_ROOT,'360org'),path.join(os.homedir(),'.claude','360org'),'/Volumes/DATA/ENV/.claude/360org'].filter(Boolean);const base=roots.find(r=>fs.existsSync(r));if(!base)process.exit(0);const script=path.join(base,'scripts','hooks',target);if(!fs.existsSync(script))process.exit(0);const result=spawnSync(process.execPath,[script],{input:raw,encoding:'utf8',env:process.env,cwd:process.cwd(),timeout:25000,maxBuffer:16*1024*1024});process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');process.exit(Number.isInteger(result.status)?result.status:0);\" 360-smart-router.js",
+            "timeout": 30,
+            "statusMessage": "Nạp ngữ cảnh AIaC"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Read|Write|Edit|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),os=require('os'),path=require('path'),{spawnSync}=require('child_process');const raw=fs.readFileSync(0,'utf8');const target=process.argv[1];const roots=[process.env.AIAC_ENV_ROOT&&path.join(process.env.AIAC_ENV_ROOT,'.claude','360org'),process.env.CLAUDE_PLUGIN_ROOT&&path.join(process.env.CLAUDE_PLUGIN_ROOT,'360org'),path.join(os.homedir(),'.claude','360org'),'/Volumes/DATA/ENV/.claude/360org'].filter(Boolean);const base=roots.find(r=>fs.existsSync(r));if(!base)process.exit(0);const script=path.join(base,'scripts','hooks',target);if(!fs.existsSync(script))process.exit(0);const result=spawnSync(process.execPath,[script],{input:raw,encoding:'utf8',env:process.env,cwd:process.cwd(),timeout:25000,maxBuffer:16*1024*1024});process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');process.exit(Number.isInteger(result.status)?result.status:0);\" aiac-hook-bridge.js",
+            "timeout": 5,
+            "statusMessage": "AIaC Security & Policy Gate"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),os=require('os'),path=require('path'),{spawnSync}=require('child_process');const raw=fs.readFileSync(0,'utf8');const target=process.argv[1];const roots=[process.env.AIAC_ENV_ROOT&&path.join(process.env.AIAC_ENV_ROOT,'.claude','360org'),process.env.CLAUDE_PLUGIN_ROOT&&path.join(process.env.CLAUDE_PLUGIN_ROOT,'360org'),path.join(os.homedir(),'.claude','360org'),'/Volumes/DATA/ENV/.claude/360org'].filter(Boolean);const base=roots.find(r=>fs.existsSync(r));if(!base)process.exit(0);const script=path.join(base,'scripts','hooks',target);if(!fs.existsSync(script))process.exit(0);const result=spawnSync(process.execPath,[script],{input:raw,encoding:'utf8',env:process.env,cwd:process.cwd(),timeout:25000,maxBuffer:16*1024*1024});process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');process.exit(Number.isInteger(result.status)?result.status:0);\" aiac-hook-bridge.js",
+            "timeout": 5,
+            "statusMessage": "AIaC Plugin Linter & Validation"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),os=require('os'),path=require('path'),{spawnSync}=require('child_process');const raw=fs.readFileSync(0,'utf8');const target=process.argv[1];const roots=[process.env.AIAC_ENV_ROOT&&path.join(process.env.AIAC_ENV_ROOT,'.claude','360org'),process.env.CLAUDE_PLUGIN_ROOT&&path.join(process.env.CLAUDE_PLUGIN_ROOT,'360org'),path.join(os.homedir(),'.claude','360org'),'/Volumes/DATA/ENV/.claude/360org'].filter(Boolean);const base=roots.find(r=>fs.existsSync(r));if(!base)process.exit(0);const script=path.join(base,'scripts','hooks',target);if(!fs.existsSync(script))process.exit(0);const result=spawnSync(process.execPath,[script],{input:raw,encoding:'utf8',env:process.env,cwd:process.cwd(),timeout:5000,maxBuffer:1024*1024});process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');process.exit(Number.isInteger(result.status)?result.status:0);\" aiac-compact-lite.js",
+            "timeout": 5,
+            "statusMessage": "AIaC compact nhẹ"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs'),os=require('os'),path=require('path'),{spawnSync}=require('child_process');const raw=fs.readFileSync(0,'utf8');const target=process.argv[1];const roots=[process.env.AIAC_ENV_ROOT&&path.join(process.env.AIAC_ENV_ROOT,'.claude','360org'),process.env.CLAUDE_PLUGIN_ROOT&&path.join(process.env.CLAUDE_PLUGIN_ROOT,'360org'),path.join(os.homedir(),'.claude','360org'),'/Volumes/DATA/ENV/.claude/360org'].filter(Boolean);const base=roots.find(r=>fs.existsSync(r));if(!base)process.exit(0);const script=path.join(base,'scripts','hooks',target);if(!fs.existsSync(script))process.exit(0);const result=spawnSync(process.execPath,[script],{input:raw,encoding:'utf8',env:process.env,cwd:process.cwd(),timeout:5000,maxBuffer:1024*1024});process.stdout.write(result.stdout||'');process.stderr.write(result.stderr||'');process.exit(Number.isInteger(result.status)?result.status:0);\" aiac-stop-pipeline.js",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

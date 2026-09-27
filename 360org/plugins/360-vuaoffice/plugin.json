@@ -1,0 +1,10 @@
+{
+  "name": "360-vuaoffice",
+  "version": "3.0.0",
+  "description": "VuaOffice Electron Suite & Desktop Productivity Engine",
+  "main": "index.js",
+  "inject": ["shell", "electron"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/vuaoffice-standards.md"]
+}

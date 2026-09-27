@@ -1,0 +1,10 @@
+{
+  "name": "360-codegraph",
+  "version": "3.0.0",
+  "description": "Local CodeGraph and Dependency Import Mapper Engine",
+  "main": "index.js",
+  "inject": ["nodejs", "graph"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/codegraph-standards.md"]
+}

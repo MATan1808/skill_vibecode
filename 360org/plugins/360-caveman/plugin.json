@@ -1,0 +1,10 @@
+{
+  "name": "360-caveman",
+  "version": "3.0.0",
+  "description": "Ultra-Terse & Compressed Output Style Engine",
+  "main": "index.js",
+  "inject": ["style", "compression"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/caveman-standards.md"]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "360-desktop-reverse",
+  "version": "1.0.0",
+  "description": "Desktop Application Reverse Engineering & Inspection Engine for Electron, Tauri, macOS .app and Native Bundles",
+  "main": "index.js",
+  "inject": ["desktop-reverse", "electron", "tauri", "macho", "thick-client"],
+  "hooks": {},
+  "connectors": [
+    { "name": "inspect-desktop-app", "type": "bash", "script": "scripts/inspect-desktop-app.sh" }
+  ],
+  "prompts": [
+    "prompts/SKILL.md"
+  ]
+}

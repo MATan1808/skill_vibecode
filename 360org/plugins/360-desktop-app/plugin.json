@@ -1,0 +1,19 @@
+{
+  "name": "360-desktop-app",
+  "version": "3.0.0",
+  "description": "V-Assistant & VuaOffice Electron/Tauri Desktop App Engine",
+  "main": "index.js",
+  "inject": ["shell", "tauri", "electron"],
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "script": "hooks/post-write-desktop-check.js" }
+    ]
+  },
+  "connectors": [
+    { "name": "tauri-cli", "type": "binary" },
+    { "name": "electron-builder", "type": "binary" }
+  ],
+  "prompts": [
+    "prompts/desktop-standards.md"
+  ]
+}

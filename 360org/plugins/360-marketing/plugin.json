@@ -1,0 +1,10 @@
+{
+  "name": "360-marketing",
+  "version": "3.0.0",
+  "description": "360 Marketing Strategy, Pitch Deck & Copywriting Engine",
+  "main": "index.js",
+  "inject": ["marketing", "copywriting"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/marketing-standards.md"]
+}

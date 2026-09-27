@@ -1,0 +1,46 @@
+name: Gherkin Linting
+
+on:
+  push:
+    branches:
+      - trunk
+      - 'release/**'
+    # Only run if feature files are changed.
+    paths:
+      - '.github/workflows/gherkin-lint.yml'
+      - 'package-lock.json'
+      - '**.feature'
+  pull_request:
+    branches:
+      - trunk
+      - 'release/**'
+      - 'feature/**'
+    # Only run if feature files are changed.
+    paths:
+      - '.github/workflows/gherkin-lint.yml'
+      - 'package-lock.json'
+      - '**.feature'
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  gherkin-lint:
+    name: Lint Gherkin Feature files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v7
+
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Gherkin lint
+        run: npm run lint-gherkin

@@ -1,0 +1,22 @@
+[options]
+addons_path = {{ addons_path }}
+data_dir = /var/lib/odoo
+db_host = db
+db_port = 5432
+db_user = odoo
+db_password = odoo
+{% if db_name %}
+db_name = {{ db_name }}
+{% endif %}
+admin_passwd = admin
+dev_mode = reload,qweb,werkzeug,xml
+limit_memory_hard = 2684354560
+limit_memory_soft = 2147483648
+limit_request = 8192
+limit_time_cpu = 0
+limit_time_real = 0
+limit_time_real_cron = 0
+max_cron_threads = 1
+workers = 0
+log_level = info
+list_db = True

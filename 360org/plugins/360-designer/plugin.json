@@ -1,0 +1,10 @@
+{
+  "name": "360-designer",
+  "version": "3.0.0",
+  "description": "UI/UX Pro Max Intelligence, Design Tokens & Multi-Platform Adaptive Engine",
+  "main": "index.js",
+  "inject": ["design-system", "ui-adapters"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/ui-ux-rules.md", "prompts/platform-adapters.md", "prompts/design-system.md", "prompts/brand.md"]
+}

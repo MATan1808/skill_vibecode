@@ -1,0 +1,92 @@
+name: PHP Code Linting
+
+on:
+  push:
+    branches:
+      - trunk
+      - 'release/**'
+    # Only run if PHP-related files changed.
+    paths:
+      - '.github/workflows/php-lint.yml'
+      - '**.php'
+      - 'phpcs.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+  pull_request:
+    branches:
+      - trunk
+      - 'release/**'
+      - 'feature/**'
+    # Only run if PHP-related files changed.
+    paths:
+      - '.github/workflows/php-lint.yml'
+      - '**.php'
+      - 'phpcs.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  php-lint:
+    name: PHP
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 'latest'
+
+      - name: Validate Composer configuration
+        run: composer validate
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda
+        with:
+          composer-options: '--prefer-dist'
+
+      - name: PHP Lint
+        run: composer lint
+
+      - name: PHPStan
+        run: composer phpstan
+
+      - name: PHPMD
+        run: composer phpmd
+
+  php-lint-sniffs:
+    name: PHP (Sniffs)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Validate Composer configuration
+        working-directory: "phpcs-sniffs"
+        run: composer validate
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda
+        with:
+          composer-options: '--prefer-dist'
+          working-directory: "phpcs-sniffs"
+
+      - name: PHP Lint
+        working-directory: "phpcs-sniffs"
+        run: composer lint
+
+      - name: PHP Lint PHPCS
+        working-directory: "phpcs-sniffs"
+        run: composer check-cs

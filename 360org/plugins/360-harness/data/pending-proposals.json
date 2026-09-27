@@ -1,0 +1,52 @@
+[
+  {
+    "id": "prop_1789361205344_c3d0b1",
+    "type": "USER_DIRECTIVE",
+    "domain": "360-harness",
+    "title": "Tốt nhất là định kỳ sẽ agent sẽ tự học, so sánh với aiac sau đó show list để anh",
+    "detail": "Tốt nhất là định kỳ sẽ agent sẽ tự học, so sánh với aiac sau đó show list để anh approved mới được.",
+    "contentHash": "c3d0b12676a0f920",
+    "proposedAt": "2026-09-14T04:46:45.342Z",
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "id": "prop_1789361205345_dca74c",
+    "type": "USER_DIRECTIVE",
+    "domain": "360-dev-workflow",
+    "title": "liên quan đến chỗ đụng vùng cấm dead này phải có thông báo chứ ko phải đến đó là",
+    "detail": "liên quan đến chỗ đụng vùng cấm dead này phải có thông báo chứ ko phải đến đó là chết luôn ko làm gì cả.",
+    "contentHash": "dca74ca86b76f97c",
+    "proposedAt": "2026-09-14T04:46:45.345Z",
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "id": "prop_9502bd29-ed66-41e8-8411-07b38ad8f407",
+    "type": "USER_DIRECTIVE",
+    "domain": "360-dev-workflow",
+    "title": "đâu rồi ? aiac chết luôn rồi",
+    "detail": "đâu rồi ? aiac chết luôn rồi",
+    "contentHash": "1196e9219ceebe9f",
+    "proposedAt": "2026-09-15T07:26:43.946Z",
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "id": "prop_2d527ba4-25ca-43cc-810e-3ebad51dbfcd",
+    "type": "USER_DIRECTIVE",
+    "domain": "360-dev-workflow",
+    "title": "anh chuyển sang DNS only rồi em test lại giúp anh nhé.",
+    "detail": "anh chuyển sang DNS only rồi em test lại giúp anh nhé.",
+    "contentHash": "25eeb3f386eca579",
+    "proposedAt": "2026-09-16T01:27:00.405Z",
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "id": "prop_75cec42a-ae72-4c2a-8b92-97bb18e1e0d7",
+    "type": "USER_DIRECTIVE",
+    "domain": "360-odoo",
+    "title": "bỏ dần các chữ như odoo_* đi nếu ko bắt buộc đừng đưa vào.",
+    "detail": "bỏ dần các chữ như odoo_* đi nếu ko bắt buộc đừng đưa vào.",
+    "contentHash": "9e6798817b13fa2d",
+    "proposedAt": "2026-09-19T11:46:07.653Z",
+    "status": "PENDING_APPROVAL"
+  }
+]

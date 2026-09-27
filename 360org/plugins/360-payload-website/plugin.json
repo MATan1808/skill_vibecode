@@ -1,0 +1,19 @@
+{
+  "name": "360-payload-website",
+  "version": "3.8.9",
+  "description": "Payload CMS 3.x + Next.js Enterprise Marketing Site & CloudPanel Deploy Engine",
+  "main": "index.js",
+  "inject": ["shell", "nextjs", "payload", "cms"],
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "script": "hooks/post-write-payload-check.js" }
+    ]
+  },
+  "connectors": [
+    { "name": "payload-scaffold", "type": "node", "script": "scripts/payload-scaffold.js" },
+    { "name": "payload-linter", "type": "node", "script": "scripts/payload-linter.js" }
+  ],
+  "prompts": [
+    "prompts/payload-standards.md"
+  ]
+}

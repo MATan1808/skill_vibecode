@@ -1,0 +1,59 @@
+<?php
+/**
+ * Unit test class for WordPress Coding Standard.
+ *
+ * @package WPCS\WordPressCodingStandards
+ * @link    https://github.com/WordPress/WordPress-Coding-Standards
+ * @license https://opensource.org/licenses/MIT MIT
+ */
+
+namespace WordPressCS\WordPress\Tests\WP;
+
+use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+
+/**
+ * Unit test class for the ClassNameCase sniff.
+ *
+ * @since 3.0.0
+ *
+ * @covers \WordPressCS\WordPress\Sniffs\WP\ClassNameCaseSniff
+ */
+final class ClassNameCaseUnitTest extends AbstractSniffUnitTest {
+
+	/**
+	 * Returns the lines where errors should occur.
+	 *
+	 * @return array<int, int> Key is the line number, value is the number of expected errors.
+	 */
+	public function getErrorList() {
+		return array();
+	}
+
+	/**
+	 * Returns the lines where warnings should occur.
+	 *
+	 * @return array<int, int> Key is the line number, value is the number of expected warnings.
+	 */
+	public function getWarningList() {
+		return array(
+			37  => 1,
+			38  => 1,
+			40  => 1,
+			42  => 1,
+			43  => 1,
+			46  => 1,
+			47  => 1,
+			48  => 1,
+			49  => 1,
+			70  => 1,
+			79  => 1,
+			83  => 1,
+			84  => 1,
+			88  => 1,
+			89  => 1,
+			93  => 1,
+			99  => 1,
+			101 => 1,
+		);
+	}
+}

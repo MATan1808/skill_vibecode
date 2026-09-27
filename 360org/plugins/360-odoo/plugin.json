@@ -1,0 +1,19 @@
+{
+  "name": "360-odoo",
+  "version": "3.0.0",
+  "description": "Odoo v14-v19 Enterprise & Community Development Engine",
+  "main": "index.js",
+  "inject": ["shell", "linter", "db-graph"],
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "script": "hooks/post-write-odoo-linter.js" }
+    ]
+  },
+  "connectors": [
+    { "name": "odoo-linter", "type": "python", "script": "360org/scripts/odoo/odoo_linter.py" },
+    { "name": "odoo-generator", "type": "python", "script": "360org/scripts/odoo/odoo_generator.py" }
+  ],
+  "prompts": [
+    "prompts/odoo-standards.md"
+  ]
+}

@@ -1,0 +1,5 @@
+version: 1
+metadata:
+  display_name: "Feature Development"
+  short_description: "Run migrated source command feature-development"
+  default_prompt: "Use $source-command-feature-development to run the migrated source command."

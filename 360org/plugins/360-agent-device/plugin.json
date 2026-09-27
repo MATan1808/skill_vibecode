@@ -1,0 +1,36 @@
+{
+  "name": "360-agent-device",
+  "version": "1.0.0",
+  "description": "Mobile & Desktop Device Automation, UI Inspection, and Live App Verification Engine for AI Coding Agents (iOS Simulator, Android Emulator, macOS, and Physical Devices)",
+  "main": "index.js",
+  "inject": [
+    "device",
+    "agent-device",
+    "ios-simulator",
+    "android-emulator",
+    "mobile-test",
+    "device-test",
+    "macos-automation"
+  ],
+  "hooks": {},
+  "connectors": [
+    {
+      "name": "agent-device-run",
+      "type": "bash",
+      "script": "scripts/agent-device-run.sh"
+    },
+    {
+      "name": "device-doctor",
+      "type": "bash",
+      "script": "scripts/device-doctor.sh"
+    }
+  ],
+  "prompts": [
+    "prompts/SKILL.md",
+    "prompts/references/verification-loop.md",
+    "prompts/references/ios-simulator-guide.md",
+    "prompts/references/android-emulator-guide.md",
+    "prompts/references/macos-desktop-guide.md",
+    "prompts/references/maestro-and-scripting.md"
+  ]
+}

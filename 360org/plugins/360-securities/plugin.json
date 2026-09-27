@@ -1,0 +1,10 @@
+{
+  "name": "360-securities",
+  "version": "3.0.0",
+  "description": "360-Securities Community Plugin & Security Hardening Engine",
+  "main": "index.js",
+  "inject": ["security", "linter"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/securities-standards.md"]
+}

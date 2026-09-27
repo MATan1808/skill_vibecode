@@ -1,0 +1,10 @@
+{
+  "name": "360-rancher",
+  "version": "3.0.0",
+  "description": "Kubernetes Rancher SaaS Cluster Management Engine",
+  "main": "index.js",
+  "inject": ["shell", "kubectl"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/rancher-standards.md"]
+}

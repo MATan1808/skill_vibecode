@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 2,
+  "updatedAt": "2026-09-03",
+  "policy": {
+    "sourceRole": "reference-and-update-audit-only",
+    "integrationMode": "manual-selective",
+    "runtimeExternalDependency": false,
+    "allowedRuntimeRoot": "360org/plugins",
+    "forbiddenRuntimePathPrefixes": [
+      "/Volumes/DATA/DEV/SKILLS/",
+      "/Volumes/DATA/DEV/SKILL_SOURCES/"
+    ],
+    "automaticCopy": false,
+    "automaticInstall": false,
+    "automaticCommitOrPush": false
+  },
+  "trackedSources": [
+    {
+      "name": "ECC",
+      "repository": "https://github.com/affaan-m/ECC.git",
+      "reviewedCommit": "22e8cf01",
+      "target": "core-overlay",
+      "decision": "separate-manual-audit-required"
+    },
+    {
+      "name": "graphify",
+      "repository": "https://github.com/Graphify-Labs/graphify.git",
+      "reviewedVersion": "0.9.53",
+      "reviewedCommit": "33362d9",
+      "integratedBaseVersion": "0.9.48",
+      "integratedPatches": ["6b2dfa0", "88f5396", "bf385a5", "c361189", "9aeade7", "588dc04"],
+      "target": "360org/plugins/360-graphify",
+      "decision": "manual-selective-upgrade"
+    },
+    {
+      "name": "ponytail",
+      "repository": "https://github.com/obra/ponytail.git",
+      "reviewedVersion": "4.9.0",
+      "reviewedCommit": "2ed6c52",
+      "target": "360org/plugins/360-ponytail",
+      "decision": "keep-aiac-adapter-review-upstream"
+    },
+    {
+      "name": "caveman",
+      "repository": "https://github.com/JuliusBrussee/caveman.git",
+      "reviewedCommit": "3b74643",
+      "target": "360org/plugins/360-caveman",
+      "decision": "keep-aiac-adapter-review-upstream"
+    },
+    {
+      "name": "agent-browser",
+      "repository": "https://github.com/vercel-labs/agent-browser.git",
+      "reviewedVersion": "0.36.0",
+      "reviewedCommit": "eb05921",
+      "target": "360org/plugins/360-agent-browser",
+      "decision": "manual-review-pending"
+    },
+    {
+      "name": "flutter-plugins",
+      "repository": "https://github.com/flutter/agent-plugins.git",
+      "reviewedCommit": "9b8106d",
+      "target": "360org/plugins/360-flutter",
+      "decision": "manual-review-pending"
+    },
+    {
+      "name": "odoo-development-skill",
+      "repository": "https://github.com/fhidalgodev/odoo-development-skill.git",
+      "reviewedCommit": "dc20153",
+      "target": "360org/plugins/360-odoo",
+      "decision": "keep-aiac-adapter-review-upstream"
+    },
+    {
+      "name": "odoo-agent-skills",
+      "repository": "https://github.com/unclecatvn/agent-skills.git",
+      "reviewedCommit": "1c764c6",
+      "target": "360org/plugins/360-odoo",
+      "decision": "manual-review-pending"
+    },
+    {
+      "name": "qodo-skills",
+      "repository": "https://github.com/qodo-ai/qodo-skills.git",
+      "reviewedCommit": "3f017b1",
+      "target": "360org/plugins/360-gitsync",
+      "decision": "manual-review-pending"
+    },
+    {
+      "name": "spec-kit",
+      "repository": "https://github.com/github/spec-kit.git",
+      "reviewedCommit": "a369c5c2",
+      "target": "360org/plugins/360-dev-workflow",
+      "decision": "manual-review-pending"
+    },
+    {
+      "name": "OpenSpec",
+      "repository": "https://github.com/Fission-AI/OpenSpec.git",
+      "reviewedCommit": "e062b95",
+      "target": "360org/plugins/360-dev-workflow",
+      "decision": "manual-review-pending"
+    },
+    {
+      "name": "wp-audit-website",
+      "repository": "git@gitlab.com:vuaai/ai_hub/skills/wp-audit-website.git",
+      "reviewedCommit": "6dd992c",
+      "target": "360org/plugins/360-securities",
+      "decision": "up-to-date-no-change"
+    }
+  ]
+}

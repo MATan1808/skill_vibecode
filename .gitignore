@@ -1,0 +1,138 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# API keys and secrets
+*.key
+*.pem
+secrets.json
+config/secrets.yml
+.secrets
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.pid
+
+# Editor files
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.yarn/
+lerna-debug.log*
+*.tgz
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+.cache/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Task files (Claude Code teams)
+tasks/
+
+# Personal configs (if any)
+personal/
+private/
+
+# Session templates (not committed)
+examples/sessions/*.tmp
+
+# Local drafts
+marketing/
+.dmux/
+.dmux-hooks/
+.claude/settings.local.json
+.claude/launch.json
+.claude/worktrees/
+.claude/scheduled_tasks.lock
+.claude/aiac/sessions/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# Observer temp files (continuous-learning-v2)
+.observer-tmp/
+
+# Rust build artifacts
+ecc2/target/
+
+# Bootstrap pipeline outputs
+# Generated lock files in tool subdirectories
+# .opencode/package-lock.json is committed: tests/scripts/build-opencode.test.js
+# requires it in the npm pack payload.
+.opencode/node_modules/
+
+# yarn is the canonical package manager for this repo (see package.json
+# "packageManager"); ignore stray lockfiles from running another manager locally
+/bun.lock
+/bun.lockb
+assets/images/security/badrudi-exploit.mp4
+
+.aider*
+
+# Khoá bí mật không bao giờ vào git (xem 360-gitsync/README.md)
+360org/skills/*/securities/
+!360org/skills/360-wordpres/securities/
+!360org/skills/360-wordpres/securities/**
+id_ed25519
+id_rsa
+*_ed25519
+
+# 360-gitsync là submodule private — không track nội dung trong parent repo
+360org/skills/360-gitsync/
+
+# AIaC runtime telemetry — chứa đường dẫn transcript/token usage cục bộ, không commit
+360org/telemetry/*.json
+360org/telemetry/*.sqlite
+360org/telemetry/*.sqlite-*
+360org/aiac-runtime.json
+
+# Binary tools & kernels (exceed 100MB limit on GitLab)
+360org/tools/
+
+# AIaC CodeGraph Cache
+.codegraph/
+
+

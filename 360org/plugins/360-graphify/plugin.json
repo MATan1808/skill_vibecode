@@ -1,0 +1,14 @@
+{
+  "name": "360-graphify",
+  "version": "1.0.0",
+  "description": "Code Knowledge Graph Engine & AST Semantic Indexer for Fast Agent Navigation",
+  "main": "index.js",
+  "inject": ["graphify", "codegraph-deep", "ast-index"],
+  "hooks": {},
+  "connectors": [
+    { "name": "graphify-cli", "type": "bash", "script": "scripts/graphify-run.sh" }
+  ],
+  "prompts": [
+    "prompts/SKILL.md"
+  ]
+}

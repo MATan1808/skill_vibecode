@@ -1,0 +1,12 @@
+{
+  "name": "360-token-killer",
+  "version": "3.0.0",
+  "description": "Zero-Waste Token Sanitizer & Context Guard Engine for AIaC 3.0",
+  "main": "index.js",
+  "inject": ["token-optimization", "context-guard"],
+  "hooks": {
+    "PostToolUse": [{ "matcher": "Bash|Read", "script": "hooks/post-tool-token-trimmer.js" }]
+  },
+  "connectors": [],
+  "prompts": ["prompts/token-killer-rules.md"]
+}

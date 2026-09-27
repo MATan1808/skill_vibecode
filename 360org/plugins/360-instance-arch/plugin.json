@@ -1,0 +1,10 @@
+{
+  "name": "360-instance-arch",
+  "version": "1.0.0",
+  "description": "Customer Instance Repo Layout & Long-term Dev Convention (Odoo)",
+  "main": "index.js",
+  "inject": ["layout"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/instance-arch-standards.md"]
+}

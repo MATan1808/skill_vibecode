@@ -1,0 +1,30 @@
+# SPEC & ARCH: {{plugin_name}}
+
+Tham chiếu `IDEA.md` và `REQUIREMENTS.md`.
+
+## 1. Loại plugin & Kiến trúc
+
+Loại: **{{Platform Adapter | Tool | Skill | Provider}}**. Tham khảo `hermes-dev-skills/references/{{platform-adapters.md | tools-and-hooks.md | skills-and-blueprints.md | provider-plugins.md}}` trước khi điền phần dưới.
+
+```
+{{Sơ đồ ASCII đơn giản: User ↔ Platform ↔ Adapter ↔ Gateway Runner ↔ AIAgent (nếu Platform Adapter)}}
+```
+
+## 2. Đặc tả Kỹ thuật
+
+### 2.1 Cấu hình Plugin (`plugin.yaml`)
+| Env var | Mô tả | Bắt buộc |
+|---|---|---|
+| {{VAR_1}} | {{...}} | requires_env |
+| {{VAR_2}} | {{...}} | optional_env |
+
+### 2.2 Đặc tả Code (`adapter.py` / `tools.py`)
+{{Nếu Platform Adapter: connect() làm gì, send() gọi API nào, poll/webhook loop ra sao, token lock có cần không.}}
+{{Nếu Tool: schema tham số, handler logic, check_fn kiểm tra gì.}}
+
+### 2.3 Cơ chế Đăng ký (`register(ctx)`)
+{{ctx.register_platform(...) / ctx.register_tool(...) / ctx.register_provider(...) — liệt kê đủ tham số dự kiến dùng, trích nguồn API đã verify.}}
+
+---
+
+> 📝 **Đồng ý thiết kế:** Sếp duyệt để chuyển sang `/plan`.

@@ -1,0 +1,28 @@
+stages:
+  - test
+
+variables:
+  npm_config_ignore_scripts: "true"
+
+default:
+  image: node:20-bookworm
+  before_script:
+    - npm ci --ignore-scripts
+
+aiac-360org:
+  stage: test
+  script:
+    - node tests/360org-router.test.js
+    - AIAC_DOCTOR_SOURCE_ONLY=1 node 360org/scripts/aiac/doctor.js
+    - bash -n install-aiac.sh
+    - node -c 360org/scripts/hooks/360-smart-router.js
+    - node -c scripts/aiac/merge-claude-settings.js
+    - test "$(grep -R "file:///Volumes/DATA/DEV/SKILLS" -n 360org/ 2>/dev/null | wc -l)" = "0"
+    - test "$(grep -n "/Volumes/DATA/DEV/aiac" 360org/scripts/hooks/360-smart-router.js 2>/dev/null | wc -l)" = "0"
+
+aiac-powershell:
+  stage: test
+  image: mcr.microsoft.com/powershell:7.4-debian-12
+  before_script: []
+  script:
+    - pwsh -NoLogo -NoProfile -Command "[scriptblock]::Create((Get-Content -LiteralPath 'install-aiac.ps1' -Raw)) | Out-Null"

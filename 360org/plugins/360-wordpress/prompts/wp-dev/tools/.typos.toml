@@ -1,0 +1,19 @@
+[default]
+extend-ignore-re = [
+    "avail_post_stati",
+    "ba",
+    "MAGPIE_INITALIZED",
+    "setted_site_transient",
+    "setted_transient",
+    "stati",
+    "url_is_accessable_via_ssl",
+    "wheres",
+]
+
+[default.extend-words]
+Automattic = "Automattic"
+
+[files]
+extend-exclude = [
+	"includes/Lib/Readme/*.php"
+]

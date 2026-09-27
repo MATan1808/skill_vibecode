@@ -1,0 +1,9 @@
+# .githubignore
+# Chỉ đẩy các script và tài liệu sạch lên GitHub. 
+# Loại bỏ bất kỳ file backup nào
+*.tsv
+*.csv
+*backup*
+tmp/
+audit-work/
+.DS_Store

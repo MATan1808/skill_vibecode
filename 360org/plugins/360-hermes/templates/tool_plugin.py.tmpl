@@ -1,0 +1,55 @@
+"""Tool plugin template — xem hermes-dev-skills/references/tools-and-hooks.md trước khi điền.
+
+Trước khi dùng file này, tự hỏi: cái này có nên là Skill (SKILL.md) thay vì Tool không?
+Chỉ tiếp tục nếu cần API key/auth flow/xử lý binary-streaming thật sự.
+"""
+import json
+import logging
+import os
+
+logger = logging.getLogger(__name__)
+
+
+# --- Availability check ---
+
+def check_{{tool_name}}_requirements() -> bool:
+    return bool(os.getenv("{{TOOL_API_KEY}}"))
+
+
+# --- Handler — LUÔN trả JSON string, lỗi LUÔN trả {"error": "..."}, không bao giờ raise ---
+
+def {{tool_name}}_handler(param_1: str) -> str:
+    api_key = os.getenv("{{TOOL_API_KEY}}")
+    if not api_key:
+        return json.dumps({"error": "{{TOOL_API_KEY}} not configured"})
+    try:
+        # TODO: logic xử lý thật ở đây
+        return json.dumps({"result": "..."})
+    except Exception as e:
+        return json.dumps({"error": str(e)})
+
+
+# --- Schema ---
+
+{{TOOL_NAME_UPPER}}_SCHEMA = {
+    "name": "{{tool_name}}",
+    "description": "{{Mô tả ngắn cho LLM biết khi nào gọi tool này}}",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "param_1": {"type": "string", "description": "{{Mô tả tham số}}"},
+        },
+        "required": ["param_1"],
+    },
+}
+
+
+def register(ctx):
+    ctx.register_tool(
+        name="{{tool_name}}",
+        toolset="{{toolset_name}}",
+        schema={{TOOL_NAME_UPPER}}_SCHEMA,
+        handler=lambda args, **kw: {{tool_name}}_handler(args.get("param_1", "")),
+        check_fn=check_{{tool_name}}_requirements,
+        requires_env=["{{TOOL_API_KEY}}"],
+    )

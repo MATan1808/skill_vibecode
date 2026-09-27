@@ -1,0 +1,10 @@
+{
+  "name": "360-update-skill-resource",
+  "version": "3.0.0",
+  "description": "Audit-first, manual-selective upstream upgrade workflow for AIaC plugins",
+  "main": "index.js",
+  "inject": ["shell", "git", "updater"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/updater-standards.md"]
+}

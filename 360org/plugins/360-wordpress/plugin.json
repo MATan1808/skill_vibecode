@@ -1,0 +1,20 @@
+{
+  "name": "360-wordpress",
+  "version": "3.0.0",
+  "description": "WordPress Plugin, Theme & Hardening Development Engine",
+  "main": "index.js",
+  "inject": ["shell", "linter", "security"],
+  "dependencies": ["360-securities", "360-designer", "360-ponytail"],
+  "hooks": {
+    "PostToolUse": [
+      { "matcher": "Edit|Write", "script": "hooks/post-write-wp-linter.js" }
+    ]
+  },
+  "connectors": [
+    { "name": "wp-cli", "type": "binary" },
+    { "name": "plugin-check", "type": "phpcs", "standard": "WordPress-Extra" }
+  ],
+  "prompts": [
+    "prompts/wp-plugin-standards.md"
+  ]
+}

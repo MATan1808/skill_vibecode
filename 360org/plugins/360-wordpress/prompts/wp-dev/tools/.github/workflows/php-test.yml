@@ -1,0 +1,163 @@
+name: PHP Unit Testing
+
+on:
+  push:
+    branches:
+      - trunk
+      - 'release/**'
+    # Only run if PHP-related files changed.
+    paths:
+      - '.github/workflows/php-test.yml'
+      - '**.php'
+      - '.wp-env.json'
+      - '.wp-env.tests.json'
+      - '**/package.json'
+      - 'package-lock.json'
+      - 'phpcs-rulesets/*.xml'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+  pull_request:
+    branches:
+      - trunk
+      - 'release/**'
+      - 'feature/**'
+    # Only run if PHP-related files changed.
+    paths:
+      - '.github/workflows/php-test.yml'
+      - '**.php'
+      - '.wp-env.json'
+      - '.wp-env.tests.json'
+      - '**/package.json'
+      - 'package-lock.json'
+      - 'phpcs-rulesets/*.xml'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  php-test:
+    name: PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}${{ matrix.experimental && ' (experimental)' || '' }}${{ matrix.coverage && ' (with coverage)' || '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: true
+      matrix:
+        php:
+        - '7.4'
+        - '8.0'
+        - '8.1'
+        - '8.2'
+        wordpress: [ 'latest' ]
+        include:
+          - php: '7.4'
+            wordpress: '6.3'
+          - php: '8.3'
+            wordpress: 'latest'
+            coverage: true
+          - php: '8.4'
+            wordpress: 'trunk'
+            experimental: true
+    env:
+      WP_ENV_PHP_VERSION: ${{ matrix.php }}
+      WP_ENV_CORE: ${{ matrix.wordpress == 'trunk' && 'WordPress/WordPress' || format( 'https://wordpress.org/wordpress-{0}.zip', matrix.wordpress ) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda
+        with:
+          composer-options: '--prefer-dist'
+
+      - name: Setup Node.js (.nvmrc)
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: npm install
+        run: npm ci
+
+      - name: Start WordPress
+        run: |
+          if [[ ${{ matrix.coverage == true }} == true ]]; then
+            npm run wp-env:start:tests -- --xdebug=coverage
+          else
+            npm run wp-env:start:tests
+          fi
+
+      - name: Run tests
+        run: |
+          if [[ ${{ matrix.coverage == true }} == true ]]; then
+            npm run test-php-coverage
+            npm run test-php-multisite-coverage
+          else
+            npm run test-php
+            npm run test-php-multisite
+          fi
+
+      - name: Upload code coverage report
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f
+        with:
+          file: build/logs/*.xml
+          flags: unit
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  phpcs-sniffs:
+    name: PHP (Sniffs) ${{ matrix.php }} ${{ matrix.coverage && ' (with coverage)' || '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: true
+      matrix:
+        php:
+        - '7.4'
+        - '8.0'
+        - '8.1'
+        - '8.2'
+        wordpress: [ 'latest' ]
+        include:
+          - php: '8.3'
+            coverage: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda
+        with:
+          working-directory: "phpcs-sniffs"
+
+      - name: Run tests
+        working-directory: "phpcs-sniffs"
+        run: |
+
+          if [[ ${{ matrix.coverage == true }} == true ]]; then
+            composer run-tests -- --coverage-clover ../build/logs/phpcs-coverage.xml
+          else
+            composer run-tests
+          fi
+
+      - name: Upload code coverage report
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f
+        with:
+          file: build/logs/*.xml
+          flags: phpcs-sniffs
+          token: ${{ secrets.CODECOV_TOKEN }}

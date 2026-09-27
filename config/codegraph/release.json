@@ -1,0 +1,24 @@
+{
+  "source": "https://github.com/colbymchenry/codegraph",
+  "version": "1.5.0",
+  "license": "MIT",
+  "telemetry": "disabled-by-AIaC",
+  "assets": {
+    "Darwin-arm64": {
+      "archive": "codegraph-darwin-arm64.tar.gz",
+      "sha256": "cf5ee435a6e44d097b2f98f2b7b8b9422bb1094844404efed82519c5da1af2cf"
+    },
+    "Darwin-x86_64": {
+      "archive": "codegraph-darwin-x64.tar.gz",
+      "sha256": "0a0ccc29bf7da9d10be1458d89d7e15c55927ae24cd95e9fa3de4bdfea059dde"
+    },
+    "Linux-arm64": {
+      "archive": "codegraph-linux-arm64.tar.gz",
+      "sha256": "9f17750aedf45d51f68caae39ed21d6e2a7290b2326e5c53f95a165918ebd1d8"
+    },
+    "Linux-x86_64": {
+      "archive": "codegraph-linux-x64.tar.gz",
+      "sha256": "2ba65e87a1210b706bb1e67d5e48b5fc4a1935e43dbb3fb5f31c5597840d2e58"
+    }
+  }
+}

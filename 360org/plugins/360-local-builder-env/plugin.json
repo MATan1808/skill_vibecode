@@ -1,0 +1,36 @@
+{
+  "name": "360-local-builder-env",
+  "version": "1.0.0",
+  "description": "Tự động khởi tạo, quản lý môi trường dev Odoo Docker cô lập theo 99 ports range, auto restore DB, auto GitLab private backup cho từng client",
+  "main": "index.js",
+  "author": "360org <support@360.org.vn>",
+  "keywords": [
+    "odoo",
+    "docker",
+    "local-env",
+    "migration",
+    "gitlab-backup",
+    "port-management"
+  ],
+  "inject": [
+    "local-env",
+    "docker-orchestrator",
+    "migration-builder"
+  ],
+  "hooks": {},
+  "connectors": [
+    {
+      "name": "local-env-ctl",
+      "type": "python",
+      "script": "scripts/local_env_ctl.py"
+    },
+    {
+      "name": "build-override-images",
+      "type": "python",
+      "script": "scripts/build_override_images.py"
+    }
+  ],
+  "prompts": [
+    "prompts/SKILL.md"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "360-gitsync",
+  "version": "3.0.0",
+  "description": "GitLab Private to GitHub Public Dual-Sync Engine with Security Filter",
+  "main": "index.js",
+  "inject": ["shell", "git", "security"],
+  "hooks": {},
+  "connectors": [
+    { "name": "git-sync-publish", "type": "bash", "script": "scripts/git-sync-publish.sh" }
+  ],
+  "prompts": [
+    "prompts/gitsync-standards.md"
+  ]
+}

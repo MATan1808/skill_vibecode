@@ -1,0 +1,10 @@
+{
+  "name": "360-superpowers",
+  "version": "3.0.0",
+  "description": "Superpowers Advanced Agent Harness & Multi-Agent Engine",
+  "main": "index.js",
+  "inject": ["agents", "superpowers"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/superpowers-standards.md"]
+}

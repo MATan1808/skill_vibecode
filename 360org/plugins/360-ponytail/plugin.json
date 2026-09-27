@@ -1,0 +1,22 @@
+{
+  "name": "360-ponytail",
+  "version": "3.0.0",
+  "description": "Lazy Senior Developer & Climb-the-Ladder Code Quality Engine",
+  "main": "index.js",
+  "inject": [
+    "code-quality"
+  ],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "script": "hooks/post-write-ponytail-audit.js"
+      }
+    ]
+  },
+  "connectors": [],
+  "prompts": [
+    "prompts/ponytail-rules.md",
+    "prompts/references/karpathy-guidelines.md"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "360-openclaw",
+  "version": "3.0.0",
+  "description": "360 CORP Ecosystem & VuaAI Gateway Engine",
+  "main": "index.js",
+  "inject": ["shell", "gateway"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/openclaw-standards.md"]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "360-hermes",
+  "version": "3.0.0",
+  "description": "Hermes Agent Framework & CloudPanel Deployment Engine",
+  "main": "index.js",
+  "inject": ["shell", "hermes"],
+  "hooks": {},
+  "connectors": [],
+  "prompts": ["prompts/hermes-standards.md"]
+}

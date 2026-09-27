@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-06",
+  "policy": {
+    "scope": "project-local-only",
+    "secrets": "forbidden",
+    "globalMcp": "do-not-write",
+    "permissions": "do-not-auto-allow-wildcards",
+    "merge": "preserve-existing-servers"
+  },
+  "servers": {
+    "codegraph": {
+      "description": "CodeGraph semantic local-first cho structure/flow/impact query.",
+      "enabledByDefault": false,
+      "requiresProjectState": [".codegraph"],
+      "mcpServer": {
+        "type": "stdio",
+        "command": "codegraph",
+        "args": ["serve", "--mcp"],
+        "env": {
+          "CODEGRAPH_TELEMETRY": "0"
+        }
+      }
+    }
+  }
+}

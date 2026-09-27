@@ -1,0 +1,17 @@
+name: {{plugin_name}}
+label: {{Display Label}}
+kind: {{platform|tool|model-provider|memory-provider|context-engine}}
+version: 1.0.0
+description: >
+  {{Mô tả ngắn plugin làm gì}}
+author: {{Your Name}}
+requires_env:
+  - name: {{PLUGIN_TOKEN}}
+    description: "{{Mô tả biến môi trường}}"
+    prompt: "{{Prompt hiển thị khi setup}}"
+    password: true
+optional_env:
+  - name: {{PLUGIN_OPTION}}
+    description: "{{Mô tả tuỳ chọn}}"
+    prompt: "{{Prompt}}"
+    password: false

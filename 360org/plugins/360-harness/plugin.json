@@ -1,0 +1,9 @@
+{
+  "name": "360-harness",
+  "version": "1.1.0",
+  "description": "Agentic Harness Architecture & Execution Engine (Synthesized from DeepSeek-Harness, DeepSeek-Reasonix, Learn-Claude-Code & AutoHarness)",
+  "main": "index.js",
+  "inject": ["harness", "agent-loop", "subagent", "permission", "context-compaction", "goal-evaluator", "resumable-workflow", "autoharness", "self-learning"],
+  "connectors": [],
+  "prompts": ["prompts/SKILL.md", "prompts/references/autoharness-self-learning.md"]
+}
