@@ -17,6 +17,18 @@ AIaC kế thừa lõi **ECC (Engineering Context Compiler)** và bổ sung lớp
 
 ---
 
+
+---
+
+## ⚡ Andrej Karpathy Guidelines & Ponytail Code Quality Engine
+AIaC tích hợp bộ quy chuẩn **Andrej Karpathy Guidelines** (được đúc kết từ kinh nghiệm thực chiến của Andrej Karpathy về các cạm bẫy mã nguồn LLM) kết hợp cùng triết lý **Ponytail**:
+1. **Think Before Coding**: Trình bày rõ mọi giả định trước khi viết code. Nếu có nhiều giải pháp, đưa ra các đánh đổi và thảo luận, không tự ý chọn âm thầm. Luôn ưu tiên phương án đơn giản nhất.
+2. **Simplicity First**: Đoạn code tối thiểu giải quyết triệt để vấn đề. Tuyệt đối không đầu cơ tính năng (speculative features), không dựng abstraction thừa cho code chỉ chạy một lần, không vẽ thêm cấu hình/flexibility khi chưa có yêu cầu.
+3. **Surgical Changes (Sửa phẫu thuật)**: Chỉ chạm đúng vào các dòng code bắt buộc. Không sửa code, comment hay format ở các vùng lân cận. Mọi dòng thay đổi phải truy xuất trực tiếp về yêu cầu của bài toán.
+4. **Goal-Driven Execution**: Luôn định nghĩa tiêu chí thành công kiểm chứng được (verifiable goals/tests). Lặp lại chu trình kiểm thử cho đến khi hoàn toàn pass.
+
+---
+
 ## Kiến trúc Hệ thống: Fork & Isolate
 
 AIaC sử dụng mô hình **Fork & Isolate (Kế thừa & Cô lập)** để tối ưu khả năng bảo trì:
@@ -36,7 +48,7 @@ aiac/ (Root Repo)
     │   ├── 360-openclaw/            # Kỹ năng OpenClaw (marketing site Next.js/Payload, CloudPanel)
     │   ├── 360-flutter/             # Kỹ năng Flutter (Clean Architecture, BLoC/Riverpod)
     │   ├── 360-wordpres/            # WordPress dev/audit/security/UI theo nhánh con
-    │   ├── 360-ponytail/            # YAGNI và chống over-engineering
+    │   ├── 360-ponytail/            # YAGNI, Ponytail & Karpathy Guidelines (Think Before Coding, Simplicity, Surgical Changes, Goal-Driven Execution)
     │   ├── 360-caveman/             # Kỷ luật context/token
     │   ├── 360-superpowers/         # Phân rã/kiểm chứng task phức tạp
     │   ├── 360-agent-map/           # Symbol/domain map nhẹ, tự sinh mỗi project
