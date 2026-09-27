@@ -148,9 +148,14 @@ v<version> (YYYY-MM-DD)
 
 ---
 
-## 4. Quy tắc kỹ thuật cốt lõi (Áp dụng song song Ponytail)
+## 4. Quy tắc kỹ thuật cốt lõi (Áp dụng song song Ponytail & Karpathy Guidelines)
 
 ### Ponytail Rules (BẮT BUỘC áp dụng cho MỌI sản phẩm code)
+*   **Andrej Karpathy Guidelines (BẮT BUỘC TOÀN CẦU)**:
+    1.  **Think Before Coding**: Nêu rõ giả định trước khi viết code. Nếu có nhiều hướng tiếp cận, trình bày rõ cho Sếp, tuyệt đối không âm thầm lựa chọn. Luôn chủ động đề xuất giải pháp đơn giản hơn.
+    2.  **Simplicity First**: Đoạn code tối thiểu giải quyết vấn đề. Không dựng abstraction cho code chỉ dùng một lần, không viết cấu hình/flexibility khi Sếp không yêu cầu.
+    3.  **Surgical Changes (Sửa phẫu thuật)**: Chỉ chạm đúng vào những dòng/hàm bắt buộc. Không sửa code, comment hay format ở các vùng lân cận. Mọi dòng diff phải truy xuất trực tiếp về yêu cầu của Sếp.
+    4.  **Goal-Driven Execution**: Luôn định nghĩa tiêu chí thành công kiểm chứng được (runnable checks, test cases). Lặp chu trình cho đến khi hoàn toàn pass.
 *   **Nguồn**: `360org/plugins/360-ponytail/` trong repo AIaC (sau khi cài trên máy Sếp: `/Volumes/DATA/ENV/.claude/360org/plugins/360-ponytail/`; máy khác fallback `~/.claude/360org/plugins/360-ponytail/`)
 *   **Cài đặt thực tế**: Để bật slash-commands `/ponytail`, `/ponytail-review`, `/ponytail-audit` trong phiên tương tác, chạy:
     ```bash
